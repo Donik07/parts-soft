@@ -1,0 +1,16 @@
+%h2
+  Sign up
+
+= form_with model: @user do |f|
+  .field
+    = f.label :email
+    %br
+    = f.email_field :email, autofocus: true, autocomplete: "email", value: @user.email
+
+  .field
+    = f.label :api_token
+    %br
+    = f.text_field :api_token, autocomplete: "api-token", value: @user.api_token
+
+  .actions
+    = f.submit "Save"
