@@ -1,0 +1,23 @@
+%h1
+  Результаты поиска по номеру
+
+.objects-container
+  %table.ar-table-simple
+    %thead
+      %tr
+        %th
+          Бренд
+        %th
+          Номер
+        %th
+          Название
+
+    %tbody
+      - search.each do |obj|
+        %tr
+          %th
+            = obj['brand']
+          %th
+            = obj['number']
+          %th
+            = obj['des_text']

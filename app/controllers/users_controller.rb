@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :load_user
 
   def edit
-
   end
 
   def update
@@ -16,6 +15,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :api_token)
+    UserPermit.new(current_user).permit(params.require(:user))
   end
 end

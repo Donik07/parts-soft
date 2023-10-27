@@ -1,0 +1,29 @@
+%h1
+  Корзина
+
+.objects-container
+  %table.ar-table-simple
+    %thead
+      %tr
+        %th
+          Бренд
+        %th
+          Номер
+        %th
+          Название
+        %th
+          Цена
+
+    %tbody
+      - if @collection.present?
+        - @collection.each do |obj|
+          %tr
+            %th
+              = obj['make_name']
+            %th
+              = obj['oem']
+            %th
+              = obj['detail_name']
+            %th
+              = obj['cost']
+

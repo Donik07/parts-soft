@@ -1,0 +1,29 @@
+%html
+  %head
+    %title
+      PartsSoft
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'application', media: 'all'
+
+    %body
+      %p.notice= notice
+      %p.alert= alert
+
+      - if user_signed_in?
+        .container
+          .header
+            .header-left
+              Добро пожаловать #{current_user.first_name.present? || current_user.email} !
+              = button_to "Выйти из аккаунта", destroy_user_session_path, method: :delete
+            .header-right
+              = link_to "Редактировать профиль", edit_user_path(current_user)
+              %br
+              = link_to "Главная", root_path
+              %br
+              = link_to "Корзина", baskets_index_path
+          = yield
+      - else
+        = yield

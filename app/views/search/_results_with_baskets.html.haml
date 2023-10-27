@@ -1,0 +1,56 @@
+%h1
+  Результаты поиска по номеру и бренду
+
+.objects-container
+  %table.ar-table-simple
+    %thead
+      %tr
+        %th
+          Бренд
+        %th
+          Номер
+        %th
+          Название
+        %th
+          Кол
+        %th
+          Цена
+        %th
+          Цена с наценкой
+        %th
+          Срок доставки Мин
+        %th
+          Срок доставки Макс
+        %th
+          Кол. для заказа
+        %th
+          Добавить в корзину
+
+    %tbody
+      - search.each do |obj|
+        %tr
+          %th
+            = obj['make_name']
+          %th
+            = obj['oem']
+          %th
+            = obj['detail_name']
+          %th
+            = obj['qnt']
+          %th
+            = obj['cost']
+          %th
+            = '150' # Не понял где взять цену с наценкой
+          %th
+            = obj['min_delivery_day']
+          %th
+            = obj['max_delivery_day']
+          %th
+            - timestamp = rand(10**10..10**15).to_s
+            = form_with url: baskets_send_to_basket_path, id: "send-to-basket-form-#{timestamp}" do
+              = hidden_field_tag :oem, obj['oem'].to_s
+              = hidden_field_tag :api_hash, obj['hash_key'].to_s
+              = hidden_field_tag :detail_name, obj['detail_name'].to_s
+              = number_field_tag :qnt, 0
+          %th
+            = button_tag 'Добавить в корзину',  form: "send-to-basket-form-#{timestamp}"

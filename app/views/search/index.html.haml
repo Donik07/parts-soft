@@ -1,0 +1,18 @@
+:ruby
+  brand = params[:brand]
+  search_request = params[:q]
+
+.search_form
+  = form_with url: [:search, :index], method: :get,  id: 'search-form', data: { remote: true } do
+    .form-group
+      = text_field_tag :q, search_request, placeholder: 'Введите номер', class: 'search-field'
+    .form-group
+      = label_tag 'brand:'
+      = select_tag :brand, options_for_select([[''], ['DOLZ']]), placeholder: ''
+
+    = button_tag 'Поиск'
+
+- if @search.present? && brand.present?
+  = render partial: 'results_with_baskets', locals: { search: @search }
+- elsif @search.present?
+  = render partial: 'results_by_default', locals: { search: @search }
